@@ -8,7 +8,7 @@ use std::collections::HashMap;
 
 use fx_communication::{FxCodec, Message,  Response};
 
-use tokio_serial::{FlowControl, SerialPortBuilderExt};
+use tokio_serial::{SerialPortBuilderExt};
 use fx_communication::Command::{ReadWords, WriteWords};
 use futures::SinkExt;
 
@@ -25,7 +25,6 @@ async fn main() -> tokio_serial::Result<()> {
     let tty_path = args.nth(1).unwrap_or_else(|| DEFAULT_TTY.into());
 
     let mut port = tokio_serial::new(tty_path, 9600)
-        .flow_control(FlowControl::Hardware)
         .open_native_async()?;
 
     #[cfg(unix)]

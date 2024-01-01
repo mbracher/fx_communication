@@ -25,6 +25,10 @@ async fn main() -> tokio_serial::Result<()> {
     let port = tokio_serial::new(tty_path, 9600)
         .open_native_async()?;
 
+    // #[cfg(unix)]
+    // port.set_exclusive(false)
+    //     .expect("Unable to set serial port exclusive to false");
+
     let mut client = Client::new(5,255, port);
     let mut v1= 0i16;
     let mut v2= 10i32;
